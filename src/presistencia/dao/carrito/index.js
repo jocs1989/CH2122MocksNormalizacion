@@ -1,4 +1,4 @@
-import config from "../../../config.js";
+import config from "../../../config/index.js";
 import { fileURLToPath } from "url";
 import path from "path";
 

@@ -1,15 +1,15 @@
-import config from "../../config.js";
+import config from "../../config/index.js";
 import mongoose from "mongoose";
 
 class Contenedora {
   constructor(nombre, opcionSchema) {
     this.datos = [];
     this.uri = config.MONGO_DB.uri;
-   
+
     const { Schema } = mongoose;
     this.productosSchema = new Schema(opcionSchema);
     this.conn = mongoose.createConnection(this.uri);
-    this.bd = this.conn.model(nombre,this.productosSchema);
+    this.bd = this.conn.model(nombre, this.productosSchema);
   }
 
   async save(object) {
@@ -19,10 +19,9 @@ class Contenedora {
 
   async updateById(producto) {
     try {
-      
-        const filter = { _id: producto.id };
-     
-      console.log('que hay aqui'+filter)
+      const filter = { _id: producto.id };
+
+      console.log("que hay aqui" + filter);
       await this.bd.findOneAndUpdate(filter, producto);
       return this.bd.findOne(filter);
     } catch (err) {
@@ -31,13 +30,12 @@ class Contenedora {
   }
   async getAll() {
     try {
-      
-      
-      return await this.bd.find({ });
+      return await this.bd.find({});
     } catch (err) {
       throw new Error(err);
     }
   }
+
   async getById(id) {
     try {
       this.busqueda = await this.bd.findById({ _id: id });
@@ -53,9 +51,9 @@ class Contenedora {
   async deleteById(id) {
     try {
       const filter = { _id: id };
-      const res = await this.bd.findOne(filter)      
+      const res = await this.bd.findOne(filter);
       await this.bd.deleteOne(filter);
-      return res
+      return res;
     } catch (err) {
       throw new Error(err);
       //console.log(err)
@@ -64,7 +62,6 @@ class Contenedora {
 
   async deleteAll() {
     try {
-      
       await this.bd.deleteMany({});
     } catch (err) {
       console.error(err);

@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node src/server.js",
-    "mongo": "MODO_BD='mongodb' nodemon src/server.js",
-    "archivo": "MODO_BD='archivo' nodemon src/server.js",
+    "mongo": "nodemon src/server.js",
+    "archivo": "nodemon src/server.js",
     "memoria": "MODO_BD='memoria' nodemon src/server.js",
     "firebase": "MODO_BD='firebase' nodemon src/server.js"
   },

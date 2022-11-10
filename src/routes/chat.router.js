@@ -1,13 +1,13 @@
-import Productos from "../presistencia/dao/productos/index.js"
+import ClassChat from "../presistencia/dao/chat/index.js";
 import { Router } from "express";
 import express from "express";
-import {isAdmin} from "../middleware/permisos.js"
+import { isAdmin } from "../middleware/permisos.js";
 const router = Router();
 const datosAgregados = {};
-const articulos=Productos
+const chat = ClassChat;
 router.get("/", async (req, res) => {
   try {
-    const respuesta = await articulos.getAll();
+    const respuesta = await chat.getAll();
     res.status(200).json(respuesta);
     //res.status(200).render('partials/productos',{artuculos: respuesta});
   } catch (err) {
@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    let result = await articulos.getById(id);
+    let result = await chat.getById(id);
     if (result === null) {
       throw new Error("No Existe el producto");
     } else {
@@ -34,37 +34,42 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", isAdmin, async (req, res) => {
   try {
+    const idChat = req.body.idChat;
     const nombre = req.body.nombre;
-    const descripcion = req.body.descripcion;
-    const codigo = req.body.codigo;
-    const url = req.body.url;
-    const precio = req.body.precio;
-    const stock = Number(req.body.stock);
-    const producto = { nombre, descripcion, codigo, url, precio, stock };
+    const apellido = req.body.apellido;
+    const edad = req.body.edad;
+    const alias = req.body.alias;
+    const avatar = req.body.avatar;
+    const msg = req.body.msg;
+    const autor = { idChat, nombre, apellido, edad, alias, avatar };
+    let registro= await chat.get({ autor: autor });
+    if(registro ){
+      console.log("Existe:"+registro._id)
+      await chat.setAddMsg(registro._id,{msg:msg})
+      let registro= await chat.get({ autor: autor });
+      res.status(200).json(registro._id);
+    }else{
+      console.log("No Existe")
+      const valores = await chat.save({ autor: autor, text: [{ msg: msg }] })
+      let registro= await chat.get({ autor: autor });
+      res.status(200).json(registro._id);
+    }
+    //;
+   
 
-    const valores = await articulos.save(producto);
-    res.status(200).json(valores);
+    
   } catch (err) {
     console.error(err);
     res.status(400).json({ error: err.toString() });
   }
 });
 
-router.put("/:id", isAdmin, async (req, res) => {
-  try {
-    const producto = req.body;
-    producto.id = req.params.id;
-    res.status(200).json(await articulos.updateById(producto));
-  } catch (err) {
-    console.error(err);
-    res.status(400).send({ error: "datos incorrectos" });
-  }
-});
+
 
 router.delete("/:id", isAdmin, async (req, res) => {
   try {
     const id = req.params.id;
-    res.status(200).json(await articulos.deleteById(id));
+    res.status(200).json(await chat.deleteById(id));
   } catch (err) {
     console.error(err);
     res.status(400).json({ error: "datos incorrectos" });

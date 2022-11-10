@@ -3,8 +3,8 @@ import { faker } from "@faker-js/faker/locale/es_MX";
 class Contenedora {
   constructor() {
     this.datos = [];
-    const n=5
-    for (let i = 0; n < 100; i++) {
+    
+    for (let i = 0; i < 5; i++) {
       let nombre = faker.commerce.product();
       const producto = {
         _id: faker.database.mongodbObjectId(),
@@ -16,6 +16,7 @@ class Contenedora {
         stock: faker.commerce.price(0, 100, 0),
         timestamp: Date.now(),
       };
+      
       this.datos.push(producto);
     }
   }

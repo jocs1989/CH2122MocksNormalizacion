@@ -1,10 +1,11 @@
-import Mocks from "../utils/mocks.js"
+import Mocks from "../utils/mocks/productos.mocks.js"
 import { Router } from "express";
 import express from "express";
 import {isAdmin} from "../middleware/permisos.js"
 const router = Router();
 const datosAgregados = {};
 const articulos =new Mocks()
+
 router.get("/", async (req, res) => {
   try {
     const respuesta = await articulos.getAll();
