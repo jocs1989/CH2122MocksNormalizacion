@@ -2,13 +2,24 @@ import ClassChat from "../presistencia/dao/chat/index.js";
 import { Router } from "express";
 import express from "express";
 import { isAdmin } from "../middleware/permisos.js";
+import { normalize,denormalize } from 'normalizr';
+import NormalizarChat from '../utils/normalizer/normalizer.chat.models.js'
 const router = Router();
 const datosAgregados = {};
 const chat = ClassChat;
 router.get("/", async (req, res) => {
   try {
     const respuesta = await chat.getAll();
-    res.status(200).json(respuesta);
+    
+    const inicial =JSON.stringify(respuesta).length
+      const datos =normalize(respuesta,NormalizarChat)
+      const final =JSON.stringify(datos).length
+      console.log(datos)
+      console.log('inicial:'+inicial)
+      console.log('final:'+final)
+      const datosx =denormalize(respuesta,NormalizarChat)
+      console.log(datosx )
+    res.status(200).json(datos,NormalizarChat);
     //res.status(200).render('partials/productos',{artuculos: respuesta});
   } catch (err) {
     console.error(err);
@@ -23,6 +34,7 @@ router.get("/:id", async (req, res) => {
     if (result === null) {
       throw new Error("No Existe el producto");
     } else {
+      
       res.status(200).json({ articulo: await result });
     }
   } catch (err) {
@@ -44,12 +56,11 @@ router.post("/", isAdmin, async (req, res) => {
     const autor = { idChat, nombre, apellido, edad, alias, avatar };
     let registro= await chat.get({ autor: autor });
     if(registro ){
-      console.log("Existe:"+registro._id)
-      await chat.setAddMsg(registro._id,{msg:msg})
-      let registro= await chat.get({ autor: autor });
+      
+      await chat.setAddMsg(registro._id,{text: [{msg}]});
       res.status(200).json(registro._id);
     }else{
-      console.log("No Existe")
+      
       const valores = await chat.save({ autor: autor, text: [{ msg: msg }] })
       let registro= await chat.get({ autor: autor });
       res.status(200).json(registro._id);

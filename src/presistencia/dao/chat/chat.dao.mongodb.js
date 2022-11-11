@@ -17,10 +17,10 @@ class Productos extends Contenedora {
   async setAddMsg(idChat,object) {
     try {
     
-
+      console.log(object)
       this.updateById({
         id: idChat,
-        $push: { carrito: object },
+        $push: { text: object.text },
       });
        
     } catch (err) {
