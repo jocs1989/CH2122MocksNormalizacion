@@ -11,15 +11,9 @@ router.get("/", async (req, res) => {
   try {
     const respuesta = await chat.getAll();
     
-    const inicial =JSON.stringify(respuesta).length
-      const datos =normalize(respuesta,NormalizarChat)
-      const final =JSON.stringify(datos).length
-      console.log(datos)
-      console.log('inicial:'+inicial)
-      console.log('final:'+final)
-      const datosx =denormalize(respuesta,NormalizarChat)
-      console.log(datosx )
-    res.status(200).json(datos,NormalizarChat);
+   
+      
+    res.status(200).json(respuesta );
     //res.status(200).render('partials/productos',{artuculos: respuesta});
   } catch (err) {
     console.error(err);

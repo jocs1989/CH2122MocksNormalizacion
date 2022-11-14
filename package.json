@@ -8,8 +8,8 @@
     "start": "node src/server.js",
     "mongo": "nodemon src/server.js",
     "archivo": "nodemon src/server.js",
-    "memoria": "MODO_BD='memoria' nodemon src/server.js",
-    "firebase": "MODO_BD='firebase' nodemon src/server.js"
+    "memoria": "nodemon src/server.js",
+    "firebase": "nodemon src/server.js"
   },
   "repository": {
     "type": "git",
@@ -23,10 +23,13 @@
   },
   "homepage": "https://github.com/jocs1989/DesafioFinal2#readme",
   "dependencies": {
+    "bcrypt": "^5.1.0",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "faker": "^5.5.3",
     "firebase-admin": "^11.2.0",
+    "joi": "^17.7.0",
     "mongodb": "^4.11.0",
     "mongoose": "^6.7.0",
     "nodemon": "^2.0.20",
