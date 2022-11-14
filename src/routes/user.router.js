@@ -41,11 +41,13 @@ router.delete("/:id", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    let result = await users.getAllCar(id);
+    let result = await users.getById(id);
+  
+    
     if (result === null) {
       throw new Error("No Existe el producto");
     } else {
-      res.status(200).json({ articulo: await result });
+      res.status(200).json({ usuario: result });
     }
   } catch (err) {
     console.error(err);
