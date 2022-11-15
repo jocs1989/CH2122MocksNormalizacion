@@ -12,7 +12,7 @@ class Contenedora {
         descripcion: faker.commerce.productDescription(),
         codigo: faker.commerce.price(1000, 5000, 0),
         url: faker.image.imageUrl(1234, 2345, nombre, true),
-        precio: faker.commerce.price(100, 100, 0),
+        precio: faker.commerce.price(100, 1000, 0),
         stock: faker.commerce.price(0, 100, 0),
         timestamp: Date.now(),
       };
@@ -29,7 +29,7 @@ class Contenedora {
       descripcion: faker.commerce.productDescription(),
       codigo: faker.commerce.price(1000, 5000, 0),
       url: faker.image.imageUrl(1234, 2345, nombre, true),
-      precio: faker.commerce.price(100, 100, 0),
+      precio: faker.commerce.price(100, 1000, 0),
       stock: faker.commerce.price(0, 100, 0),
       timestamp: Date.now(),
     };
@@ -47,7 +47,7 @@ class Contenedora {
         descripcion: faker.commerce.productDescription(),
         codigo: faker.commerce.price(1000, 5000, 0),
         url: faker.image.imageUrl(1234, 2345, nombre, true),
-        precio: faker.commerce.price(100, 100, 0),
+        precio: faker.commerce.price(100, 1000, 0),
         stock: faker.commerce.price(0, 100, 0),
         timestamp: Date.now(),
       };

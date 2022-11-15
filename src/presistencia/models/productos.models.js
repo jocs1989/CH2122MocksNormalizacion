@@ -1,7 +1,7 @@
 const opcionSchema=
    {
         nombre: { type: String, required: true, minlength: 2, maxlength: 15 },
-        descripcion: { type: String, required: true, maxlength: 100 },
+        descripcion: { type: String, required: true, maxlength: 300 },
         codigo: { type: Number, required: true, maxlength: 5, default: 1000 },
         url: { type: String, required: true, maxlength: 100 },
         precio: { type: Number, required: true, default: 100 },
