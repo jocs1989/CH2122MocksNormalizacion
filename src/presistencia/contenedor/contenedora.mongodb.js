@@ -40,7 +40,7 @@ class Contenedora {
     try {
       this.busqueda = await this.bd.findById({ _id: id });
       if (this.busqueda === null) {
-        throw new Error("No existe el producto");
+        throw new Error("No existe");
       }
       return this.busqueda;
     } catch (err) {
@@ -52,6 +52,9 @@ class Contenedora {
     try {
       const filter = { _id: id };
       const res = await this.bd.findOne(filter);
+      if(!res){
+        throw new Error(err);
+      }
       await this.bd.deleteOne(filter);
       return res;
     } catch (err) {
