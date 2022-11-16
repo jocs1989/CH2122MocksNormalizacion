@@ -9,10 +9,17 @@ const articulos=Productos
 router.get("/", async (req, res) => {
   try {
     const respuesta = await articulos.getAll();
+    const getArticulos=respuesta.map(items=>{
+      return {
+      nombre:items.nombre,
+      precio:items.precio,
+      url:items.url
+  }})
+  
     //res.status(200).json(respuesta);
     //res.status(200).render('partials/productos',{artuculos: respuesta});
     
-    res.status(200).render('partials/productos',{artuculos: respuesta});
+    res.status(200).render('partials/productos',{artuculos: getArticulos});
   } catch (err) {
     console.error(err);
     //res.status(400).json({ error: err.toString() });

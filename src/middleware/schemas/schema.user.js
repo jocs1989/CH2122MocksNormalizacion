@@ -1,16 +1,17 @@
 import Joi from "joi";
 
 const schemaUser = Joi.object({
-  nombre: Joi.string().pattern(new RegExp("^[a-zA-Z]{3,30}$")),
-  password: Joi.string(),
-  role: Joi.string().pattern(new RegExp("^[a-zA-Z]{3,30}$")),
+  nombre: Joi.string().pattern(new RegExp("^[a-zA-Z]{3,30}$")).required(),
+  password: Joi.string().required(),
+  email: Joi.string().email().required(),
+  role: Joi.string().pattern(new RegExp("^[a-zA-Z]{3,30}$")).required(),
   timestamp: Date.now,
 });
 
 const schemaUserResponse = Joi.object({
-  nombre: Joi.string().pattern(new RegExp("^[a-zA-Z]{3,30}$")),
-  
-  role: Joi.string().pattern(new RegExp("^[a-zA-Z]{3,30}$")),
+  nombre: Joi.string().pattern(new RegExp("^[a-zA-Z]{3,30}$")).required(),
+  email: Joi.string().email().required(),
+  role: Joi.string().pattern(new RegExp("^[a-zA-Z]{3,30}$")).required(),
   timestamp: Date.now,
 });
 
@@ -34,6 +35,7 @@ export  function validateUser() {
     try {
       const { error, value } = schemaUser.validate({
         nombre: res.body.nombre,
+        email:res.body.email,
         password: res.body.password,
         role: res.body.role,
       });
